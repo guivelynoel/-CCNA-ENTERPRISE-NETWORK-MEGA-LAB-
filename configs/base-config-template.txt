@@ -1,0 +1,36 @@
+
+---
+
+! ================================
+! Base Device Configuration Template
+! CCNA Enterprise Mega Lab
+! ================================
+
+hostname <DEVICE-NAME>
+
+no ip domain-lookup
+
+enable secret Ccna@123
+
+username admin privilege 15 secret Admin@123
+
+service password-encryption
+
+banner motd ^
+UNAUTHORIZED ACCESS IS PROHIBITED.
+ALL ACTIVITY IS MONITORED.
+^
+
+line console 0
+ password Console@123
+ login
+ logging synchronous
+ exit
+
+line vty 0 4
+ login local
+ transport input ssh
+ exit
+
+end
+write memory
