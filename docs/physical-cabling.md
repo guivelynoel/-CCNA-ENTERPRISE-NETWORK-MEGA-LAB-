@@ -35,4 +35,27 @@ To accommodate this limitation:
 In real-world enterprise and data center environments, these uplinks would
 typically be implemented using Gigabit or fiber-based interfaces.
 
+# Physical Cabling Plan
+
+## HQ Backbone
+- CORE-SW1 G0/1 ↔ CORE-SW2 G0/1 (Fiber)
+- CORE-SW1 G0/2 ↔ CORE-SW2 G0/2 (Fiber)
+Purpose: EtherChannel backbone and STP stability
+
+## HQ Edge Connectivity
+- HQ-EDGE-R1 G0/0 ↔ CORE-SW1 G0/24
+- HQ-EDGE-R2 G0/0 ↔ CORE-SW2 G0/24
+
+## Access Layer
+- CORE-SW1 G0/10 ↔ ACC-SW1 G0/1
+- CORE-SW2 G0/10 ↔ ACC-SW2 G0/1
+
+## Server Connections
+All servers connected to HQ-ACC-SW2 using copper straight-through cables.
+
+## WAN Links
+Serial DCE/DTE links connect HQ edge routers to each branch router.
+
+## Branch LAN
+Each branch uses a router-on-a-stick style connection with a single access switch.
 
