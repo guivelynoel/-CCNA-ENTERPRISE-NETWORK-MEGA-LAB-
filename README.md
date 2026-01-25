@@ -1,2 +1,2 @@
 # -CCNA-ENTERPRISE-NETWORK-MEGA-LAB-
-Covers EVERY CCNA topic from scratch
+Build a full enterprise network from scratch using Cisco Packet Tracer, covering all CCNA topics including switching, routing, security, services, monitoring, redundancy, and troubleshooting.
