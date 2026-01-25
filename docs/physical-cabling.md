@@ -19,3 +19,16 @@ SFP fiber ports on certain switch models (3560/3650).
 For this lab, Gigabit Ethernet copper links are used to simulate
 fiber backbone connections. Logical design, redundancy, EtherChannel,
 and STP behavior remain identical.
+
+## Interface Type Constraint (Packet Tracer)
+
+In this lab, HQ core switches have a limited number of GigabitEthernet
+interfaces available in Cisco Packet Tracer. After reserving Gigabit
+ports for uplinks, FastEthernet interfaces are used for additional
+core-to-core and distribution connections.
+
+This does not affect logical design, redundancy, EtherChannel operation,
+Spanning Tree behavior, or CCNA objectives. In a real production
+environment, these links would typically be implemented using
+Gigabit or fiber-based uplinks.
+
