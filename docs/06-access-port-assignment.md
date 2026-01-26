@@ -14,4 +14,4 @@ This step assigns end devices to the correct VLANs using access ports.
 - No trunking is configured at this stage
 
 ## Verification
-Use the following command:
+Use the following command: show vlan brief
