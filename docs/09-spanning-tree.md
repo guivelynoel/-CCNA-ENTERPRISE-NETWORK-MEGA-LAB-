@@ -1,0 +1,25 @@
+# Step 9 — Spanning Tree Protocol (STP)
+
+This step configures Rapid PVST+ to prevent Layer 2 loops
+and control traffic paths across the enterprise network.
+
+## STP Mode
+- Rapid PVST+ enabled on all switches
+
+## Root Bridge Design
+- Core switches explicitly configured as root
+- VLANs split across core switches for load sharing
+
+## Edge Protection
+- PortFast enabled on access ports
+- BPDU Guard enabled to block rogue switches
+
+## Benefits
+- Loop prevention
+- Faster convergence
+- Improved security and stability
+
+## Verification
+Use the following commands:
+show spanning-tree vlan <VLAN-ID>
+show spanning-tree interface <INTERFACE>
