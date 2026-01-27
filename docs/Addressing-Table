@@ -1,0 +1,50 @@
+WAN / Point-to-Point Links (/30)
+
+BRANCH 1 ↔ HQ
+Network: 172.16.1.0/30
+- HQ-EDGE-R1: 172.16.1.1
+- BR1-R1:     172.16.1.2
+
+BRANCH 2 ↔ HQ
+Network: 172.16.2.0/30
+- HQ-EDGE-R1: 172.16.2.1
+- BR2-R1:     172.16.2.2
+
+BRANCH 3 ↔ HQ
+Network: 172.16.3.0/30
+- HQ-EDGE-R2: 172.16.3.1
+- BR3-R1:     172.16.3.2
+
+HQ CORE INTERCONNECT
+Network: 172.16.10.0/30
+- HQ-EDGE-R1: 172.16.10.1
+- HQ-EDGE-R2: 172.16.10.2
+
+
+HQ VLAN Addressing
+
+VLAN 10 – USERS
+Network: 10.10.10.0/24
+Gateway (SVI): 10.10.10.1 (HSRP later)
+CORE-SW1:      10.10.10.2
+CORE-SW2:      10.10.10.3
+
+VLAN 20 – VOICE
+Network: 10.10.20.0/24
+Gateway: 10.10.20.1
+
+VLAN 30 – SERVERS
+Network: 10.10.30.0/24
+Gateway: 10.10.30.1
+
+VLAN 40 – MGMT
+Network: 10.10.40.0/24
+Gateway: 10.10.40.1
+
+VLAN 50 – GUEST
+Network: 10.10.50.0/24
+Gateway: 10.10.50.1
+
+VLAN 60 – DMZ
+Network: 10.10.60.0/24
+Gateway: 10.10.60.1
