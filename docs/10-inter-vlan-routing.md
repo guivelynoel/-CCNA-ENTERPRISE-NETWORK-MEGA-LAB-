@@ -12,7 +12,13 @@ Switch Virtual Interfaces (SVIs).
 - High performance routing
 - Simplified design
 - Enterprise scalability
+- 
+## Requirements
+- `ip routing` enabled on both core switches
+- SVIs created for VLANs 10/20/30/40/50/60
+- HSRP group per VLAN with VIP .1
 
-## Verification
-show ip interface brief
-ping between VLANs
+## Verify
+- `show ip interface brief`
+- `show standby brief`
+- Ping between VLANs (as permitted by ACLs)
