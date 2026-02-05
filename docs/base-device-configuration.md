@@ -127,11 +127,11 @@ Why it matters:
 
 Ensures changes persist after reboot
 
-Verification Commands
-show running-config | section username
-show running-config | section line
-show running-config | include hostname
-
+## Verification
+- `show running-config | i hostname`
+- `show users`
+- `show privilege`
+- `write memory`
 
 These commands confirm the base configuration is applied correctly.
 
