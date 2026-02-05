@@ -48,3 +48,28 @@ Gateway: 10.10.50.1
 VLAN 60 – DMZ
 Network: 10.10.60.0/24
 Gateway: 10.10.60.1
+
+
+# Addressing Table
+
+## VLAN Gateways (HSRP VIPs)
+| VLAN | Name   | Subnet         | VIP (HSRP)   |
+|------|--------|----------------|--------------|
+| 10   | USERS  | 10.10.10.0/24  | 10.10.10.1   |
+| 20   | VOICE  | 10.10.20.0/24  | 10.10.20.1   |
+| 30   | SERVERS| 10.10.30.0/24  | 10.10.30.1   |
+| 40   | MGMT   | 10.10.40.0/24  | 10.10.40.1   |
+| 50   | GUEST  | 10.10.50.0/24  | 10.10.50.1   |
+| 60   | DMZ    | 10.10.60.0/24  | 10.10.60.1   |
+
+## Core SVI IPs
+| Device    | VLAN10 | VLAN20 | VLAN30 | VLAN40 | VLAN50 | VLAN60 |
+|----------|--------|--------|--------|--------|--------|--------|
+| CORE-SW1 | .2     | .2     | .2     | .2     | .2     | .2     |
+| CORE-SW2 | .3     | .3     | .3     | .3     | .3     | .3     |
+
+> Replace ".2/.3" with the full IP format (example: 10.10.10.2).
+
+## Routed Links / WAN
+Document your /30 links here (HQ edge to ISP, HQ edge to branches, etc.)
+
