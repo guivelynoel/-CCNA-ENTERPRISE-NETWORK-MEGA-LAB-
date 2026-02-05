@@ -19,7 +19,16 @@ and control traffic paths across the enterprise network.
 - Faster convergence
 - Improved security and stability
 
-## Verification
-Use the following commands:
-show spanning-tree vlan <VLAN-ID>
-show spanning-tree interface <INTERFACE>
+
+## Root Strategy (example)
+- CORE-SW1 root primary for VLANs 10/30/40
+- CORE-SW2 root primary for VLANs 20/50/60
+
+## Example (CORE-SW1)
+spanning-tree mode rapid-pvst
+spanning-tree vlan 10,30,40 priority 24576
+spanning-tree vlan 20,50,60 priority 28672
+
+## Verify
+- `show spanning-tree vlan 10`
+- `show spanning-tree root`
