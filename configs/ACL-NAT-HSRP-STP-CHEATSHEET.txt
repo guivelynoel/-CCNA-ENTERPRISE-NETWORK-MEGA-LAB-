@@ -1,1 +1,32 @@
+=========================
+ACL / NAT / HSRP / STP QUICK CHEATSHEET
+=========================
+
+[ACL]
+show access-lists
+show ip interface <int> | include access
+interface vlan X
+ ip access-group <ACL_NAME> in
+
+[NAT]
+show ip nat translations
+show ip nat statistics
+
+[HSRP]
+show standby brief
+interface vlan X
+ standby X ip <VIP>
+ standby X priority <value>
+ standby X preempt
+
+[STP]
+show spanning-tree vlan X
+show spanning-tree root
+spanning-tree mode rapid-pvst
+spanning-tree vlan <list> priority <value>
+
+[ETHERCHANNEL]
+show etherchannel summary
+show interfaces trunk
+! If suspended: check native vlan + allowed vlan + trunk mode identical on both members
 
