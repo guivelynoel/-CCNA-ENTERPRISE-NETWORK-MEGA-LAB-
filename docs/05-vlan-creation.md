@@ -16,5 +16,24 @@ VLANs provide Layer 2 segmentation for security and scalability.
 - Branches implement a reduced VLAN set
 - No inter-VLAN routing is enabled at this stage
 
-## Verification
-Use the following command on switches:
+## Example
+conf t
+vlan 10
+ name USERS
+vlan 20
+ name VOICE
+vlan 30
+ name SERVERS
+vlan 40
+ name MGMT
+vlan 50
+ name GUEST
+vlan 60
+ name DMZ
+vlan 99
+ name NATIVE
+end
+write memory
+
+## Verify
+- `show vlan brief`
