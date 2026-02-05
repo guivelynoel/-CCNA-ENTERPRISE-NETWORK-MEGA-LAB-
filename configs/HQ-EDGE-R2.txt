@@ -1,1 +1,170 @@
 
+uilding configuration...
+
+Current configuration : 3172 bytes
+!
+version 15.1
+service timestamps log datetime msec
+service timestamps debug datetime msec
+service password-encryption
+!
+hostname HQ-edge-R2
+!
+!
+!
+!
+!
+clock timezone EST -5
+!
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+username admin privilege 15 secret 5 $1$mERr$kku/hiJPh.4Yp8Xor/4kz1
+!
+!
+license udi pid CISCO2911/K9 sn FTX1524Q00A-
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip ssh version 2
+ip domain-name corp.local
+!
+!
+spanning-tree mode pvst
+!
+class-map match-any VOICE
+ match access-group 150
+!
+policy-map WAN-QOS
+ class VOICE
+  priority percent 30
+ class class-default
+  fair-queue
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ description INSIDE-to-Core
+ ip address 172.16.1.2 255.255.255.252
+ ip nat inside
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ description OUTSIDE-to-Internet
+ ip address 200.1.1.1 255.255.255.252
+ ip access-group INTERNET-IN in
+ ip nat outside
+ service-policy output WAN-QOS
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Serial0/0/0
+ description WAN to BR3
+ ip address 172.16.3.1 255.255.255.252
+ clock rate 64000
+!
+interface Serial0/0/1
+ no ip address
+ clock rate 2000000
+ shutdown
+!
+interface Serial0/1/0
+ description Link to HQ-EDGE-R1
+ ip address 172.16.10.2 255.255.255.252
+!
+interface Serial0/1/1
+ no ip address
+ clock rate 2000000
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router ospf 1
+ router-id 22.22.22.22
+ log-adjacency-changes
+ network 172.16.3.0 0.0.0.3 area 0
+ network 172.16.10.0 0.0.0.3 area 0
+ network 10.10.254.4 0.0.0.3 area 0
+ default-information originate
+!
+ip nat inside source list 100 interface GigabitEthernet0/1 overload
+ip nat inside source static 10.10.60.50 200.1.1.50 
+ip nat inside source static 10.10.60.51 200.1.1.51 
+ip nat inside source static 10.10.60.52 200.1.1.52 
+ip nat inside source static 10.10.60.53 200.1.1.53 
+ip nat inside source static tcp 10.10.60.50 80 200.1.1.50 80 
+ip classless
+!
+ip flow-export version 9
+!
+!
+access-list 100 permit ip 10.10.0.0 0.0.255.255 any
+ip access-list extended ACL_INTERNET_IN
+ permit tcp any host 200.1.1.50 eq www
+ deny ip any any
+ip access-list extended TEST-INTERNET
+ permit tcp any any eq www
+ip access-list extended INTERNET-IN
+ remark === Allow ONLY published DMZ services ===
+ permit tcp any host 200.1.1.50 eq www
+ permit tcp any host 200.1.1.50 eq 443
+ permit udp any host 200.1.1.51 eq domain
+ permit tcp any host 200.1.1.51 eq domain
+ permit tcp any host 200.1.1.52 eq ftp
+ permit tcp any host 200.1.1.53 eq smtp
+ remark === Block direct inbound access to inside networks ===
+ deny ip any 10.10.0.0 0.0.255.255
+ remark === Permit everything else (return traffic / general internet) ===
+ permit ip any any
+ip access-list standard MGMT_ONLY
+ permit 10.10.40.0 0.0.0.255
+ deny any
+access-list 150 permit udp any any range 16384 32767
+!
+banner motd ^C
+UNAUTHORIZED ACCESS IS PROHIBITED.
+ALL ACTIVITY IS MONITORED.
+^C
+!
+!
+!
+snmp-server community MONITORING-RO RO
+snmp-server community MONITORING-RW RW
+!
+logging 10.10.30.20
+line con 0
+ logging synchronous
+ login
+!
+line aux 0
+!
+line vty 0 4
+ access-class MGMT_ONLY in
+ login local
+ transport input ssh
+!
+!
+ntp server 10.10.30.40
+ntp update-calendar
+!
+end
