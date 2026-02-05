@@ -1,17 +1,41 @@
-# CCNA Enterprise Network Mega Lab
+# 00 — Overview
 
-## Objective
-Build a full enterprise network from scratch using Cisco Packet Tracer,
-covering all CCNA topics including switching, routing, security, services,
-monitoring, redundancy, and troubleshooting.
+## Goal
+Build a realistic enterprise network in Packet Tracer that covers major CCNA topics:
+- VLAN segmentation
+- Trunking + Native VLAN
+- EtherChannel (LACP)
+- Spanning Tree (Rapid-PVST+)
+- Inter-VLAN Routing (SVIs on multilayer core)
+- HSRP gateway redundancy
+- OSPF WAN routing to branches
+- ACL security for Users/Mgmt/Guest/DMZ
+- DMZ services (Web/DNS/Mail/FTP concept)
 
-## Scope
-- HQ with dual core switches and redundant edge routers
-- Three branch offices connected via WAN
-- VLAN segmentation including DMZ and Management
-- Centralized services (DHCP, DNS, Web, Monitoring)
-- Enterprise-style documentation and troubleshooting
+## High-Level Design
+### VLANs
+- VLAN 10 — USERS
+- VLAN 20 — VOICE
+- VLAN 30 — SERVERS
+- VLAN 40 — MGMT
+- VLAN 50 — GUEST
+- VLAN 60 — DMZ
+- VLAN 99 — NATIVE / INFRA (trunk native vlan)
 
-## Status
-Step 1 complete — devices placed and named.
+### Core
+Two Catalyst 3560 multilayer switches:
+- SVIs + HSRP as default gateways
+- STP tuned per VLAN
+- LACP EtherChannel between core switches
 
+### Edge/WAN
+- HQ edge routers connect to core and to branch routers
+- OSPF used for routing between HQ and branches
+
+## Validation Targets
+- Clients receive correct VLAN/IP
+- Trunks carry correct VLANs
+- EtherChannel bundles cleanly (no suspended links)
+- HSRP active/standby correct per VLAN
+- Inter-VLAN routing works with ACL enforcement
+- OSPF neighbors form and routes propagate
