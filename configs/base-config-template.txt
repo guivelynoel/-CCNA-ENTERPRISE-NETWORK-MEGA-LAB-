@@ -1,36 +1,32 @@
-
----
-
-! ================================
-! Base Device Configuration Template
-! CCNA Enterprise Mega Lab
-! ================================
-
-hostname <DEVICE-NAME>
-
+! ==========================
+! BASE DEVICE CONFIG TEMPLATE
+! ==========================
+conf t
+hostname <DEVICE_NAME>
 no ip domain-lookup
-
-enable secret Ccna@123
-
-username admin privilege 15 secret Admin@123
-
 service password-encryption
+enable secret <STRONG_SECRET>
 
-banner motd ^
+username admin privilege 15 secret <ADMIN_SECRET>
+
+banner motd ^C
 UNAUTHORIZED ACCESS IS PROHIBITED.
 ALL ACTIVITY IS MONITORED.
-^
+^C
 
-line console 0
- password Console@123
- login
+line con 0
  logging synchronous
- exit
+ exec-timeout 10 0
+ login local
 
 line vty 0 4
+ transport input telnet ssh
  login local
- transport input ssh
- exit
+ exec-timeout 10 0
+
+! Optional SSH (requires domain + RSA keys)
+ip domain-name lab.local
+crypto key generate rsa modulus 1024
 
 end
 write memory
