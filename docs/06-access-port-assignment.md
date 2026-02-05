@@ -1,17 +1,23 @@
-# Step 6 — Access Port Assignment
+# 06 — Access Port Assignment
 
-This step assigns end devices to the correct VLANs using access ports.
+## Goal
+Assign user-facing ports to the correct VLANs.
 
-## VLAN Usage
-- VLAN 10: User PCs
-- VLAN 30: Internal servers
-- VLAN 40: Management and monitoring
-- VLAN 60: DMZ servers
+## Example (User port)
+interface fa0/5
+ switchport mode access
+ switchport access vlan 10
+ spanning-tree portfast
+ spanning-tree bpduguard enable
 
-## Design Notes
-- Port descriptions are used for clarity and troubleshooting
-- PortFast is enabled on end-device ports
-- No trunking is configured at this stage
+## Example (Voice + Data on a phone port)
+interface fa0/10
+ switchport mode access
+ switchport access vlan 10
+ switchport voice vlan 20
+ spanning-tree portfast
+ spanning-tree bpduguard enable
 
-## Verification
-Use the following command: show vlan brief
+## Verify
+- `show interfaces switchport`
+- `show vlan brief`
