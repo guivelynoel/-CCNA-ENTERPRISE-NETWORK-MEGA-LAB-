@@ -1,1 +1,72 @@
+conf t
+hostname HQ-core-sw2
+no ip domain-lookup
+ip routing
+spanning-tree mode rapid-pvst
+! Opposite STP role (optional)
+spanning-tree vlan 20,50,60 priority 24576
+spanning-tree vlan 10,30,40 priority 28672
+
+interface range gi0/1 - 2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 99
+ switchport trunk allowed vlan 10,20,30,40,50,60,99
+ channel-group 1 mode active
+
+interface port-channel1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 99
+ switchport trunk allowed vlan 10,20,30,40,50,60,99
+
+! CORE-SW2 = .3, lower priority (standby)
+interface vlan 10
+ ip address 10.10.10.3 255.255.255.0
+ standby 10 ip 10.10.10.1
+ standby 10 priority 100
+ standby 10 preempt
+
+interface vlan 20
+ ip address 10.10.20.3 255.255.255.0
+ standby 20 ip 10.10.20.1
+ standby 20 priority 100
+ standby 20 preempt
+
+interface vlan 30
+ ip address 10.10.30.3 255.255.255.0
+ standby 30 ip 10.10.30.1
+ standby 30 priority 100
+ standby 30 preempt
+
+interface vlan 40
+ ip address 10.10.40.3 255.255.255.0
+ standby 40 ip 10.10.40.1
+ standby 40 priority 100
+ standby 40 preempt
+
+interface vlan 50
+ ip address 10.10.50.3 255.255.255.0
+ standby 50 ip 10.10.50.1
+ standby 50 priority 100
+ standby 50 preempt
+
+interface vlan 60
+ ip address 10.10.60.3 255.255.255.0
+ standby 60 ip 10.10.60.1
+ standby 60 priority 100
+ standby 60 preempt
+
+router ospf 1
+ router-id 2.2.2.2
+ passive-interface vlan 10
+ passive-interface vlan 20
+ passive-interface vlan 30
+ passive-interface vlan 40
+ passive-interface vlan 50
+ passive-interface vlan 60
+ network 10.10.0.0 0.0.255.255 area 0
+
+end
+write memory
 
