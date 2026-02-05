@@ -1,0 +1,23 @@
+
+conf t
+hostname <BRANCH_ROUTER_NAME>
+no ip domain-lookup
+
+! LAN interface
+! interface g0/0
+!  ip address <BRANCH_LAN_GW> <MASK>
+!  no shut
+
+! WAN uplink to HQ
+! interface s0/0/0  (or g0/1)
+!  ip address <WAN_IP> <MASK>
+!  no shut
+
+router ospf 1
+ router-id <UNIQUE_RID>
+ log-adjacency-changes
+ network 172.16.0.0 0.0.255.255 area 0
+ network <BRANCH_LAN_NET> <WILDCARD> area 0
+
+end
+write memory
